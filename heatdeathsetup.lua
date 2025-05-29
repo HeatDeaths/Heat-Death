@@ -90,9 +90,11 @@ if input.KeyCode == Enum.KeyCode.P then
 	if open then
 	   ScreenGUI.Enabled = false
 	   open = false
+				
 	else
 	   ScreenGUI.Enabled = true
 	   open = true
+				
 	end
 	end
 end)
