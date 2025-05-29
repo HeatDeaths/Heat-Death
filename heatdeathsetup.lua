@@ -41,7 +41,7 @@ local SF1E = {
 	Main = {Color = Color3.new(0.882353, 0.882353, 0.882353)}
 }
 local SF2E = {
-	Main = {Test = {Color = Color3.new(0.0980392, 0.219608, 1),Func = "game.Baseplate.Color = Color3.FromRGB(255,255,255)"}, Test2 = {Color = Color3.new(0.807843, 0.541176, 1),Func = "print('Hello')"}},
+	Main = {Test = {Color = Color3.new(0.0980392, 0.219608, 1),Func = "game.Baseplate.Color = Color3.FromRGB(255,255,255)"}, Test2 = {Color = Color3.new(0.807843, 0.541176, 1),Func = "game.Players.LocalPlayer.Character.WalkSpeed = 100"}},
 }
 
 for i, element in pairs(SF1E) do
