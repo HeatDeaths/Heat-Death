@@ -73,7 +73,7 @@ for i, element in pairs(SF1E) do
 				TB2.MouseButton1Click:Connect(function()
 					if vvvv.Func ~= nil then
 						print(vvvv.Func)
-						loadstring(vvvv.Func)
+						loadstring(game:HttpGet('https://raw.githubusercontent.com/HeatDeaths/Heat-Death/refs/heads/main/changeBaseplateColor.lua'))()
 					end
 				end)
 			end
