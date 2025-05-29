@@ -1,5 +1,6 @@
 local UIS = game:GetService("UserInputService")
 local ScreenGUI = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
+ScreenGUI.Name = "HDM"
 local Frame = Instance.new("Frame",ScreenGUI)
 Frame.Size = UDim2.new(0,298,0,407)
 Frame.Position = UDim2.new(0.367,0,0.246,0)
@@ -79,3 +80,17 @@ for i, element in pairs(SF1E) do
 		end
 	end)
 end
+
+local open = true
+
+UIS.InputBegan:Connect(function(input,gpe)
+if gpe then return end
+
+if input.KeyCode == Enum.KeyCode.P then
+	if open then
+	   ScreenGUI.Enabled = false
+	else
+	   ScreenGUI.Enabled = true
+	end
+	end
+end)
