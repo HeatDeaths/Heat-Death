@@ -1,1 +1,1 @@
-game.Players.LocalPlayer.WalkSpeed = 100
+game.Players.LocalPlayer.Character.WalkSpeed = 100
