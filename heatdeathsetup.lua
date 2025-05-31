@@ -1,5 +1,6 @@
 local UIS = game:GetService("UserInputService")
 local ScreenGUI = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
+ScreenGUI.ResetOnSpawn = false
 ScreenGUI.Name = "HDM"
 local Frame = Instance.new("Frame",ScreenGUI)
 Frame.Size = UDim2.new(0,298,0,407)
