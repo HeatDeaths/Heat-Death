@@ -1,0 +1,68 @@
+local plr = game.Players.LocalPlayer
+local char = script.Parent
+local RP = RaycastParams.new()
+local UIS = game:GetService("UserInputService")
+
+RP.FilterDescendantsInstances = {char}
+
+local on = false
+local db = false
+
+local tb = {}
+
+UIS.InputBegan:Connect(function(input,gpe)
+	if gpe then return end
+	if db then return end
+	
+	if input.KeyCode == Enum.KeyCode.Nine then
+		if on == true then
+			on = false
+			for _, v in pairs(workspace:GetDescendants()) do
+				if  not v:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Humanoid") and v:IsA("BasePart") then
+					if tb[v.Name] then
+						print(tb[v.Name],v)
+						v.CanCollide = tb[v.Name][1]
+						v.Anchored = tb[v.Name][2]
+						tb[v.Name] = nil
+					end
+				end
+			end
+		else
+			on = true
+			for _, v in pairs(workspace:GetDescendants()) do
+				if not v:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Humanoid") and v:IsA("BasePart") and not v:IsA("Terrain") then
+					tb[v.Name] = {v.CanCollide, v.Anchored}
+				end
+			end
+		end
+		db = true
+		task.wait(0.5)
+		db = false
+	end
+end)
+
+game["Run Service"].RenderStepped:Connect(function()
+	if db == true then return end
+	if on then
+		for _, v in pairs(workspace:GetDescendants()) do
+			if  not v:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Humanoid") and v:IsA("BasePart") and not v:IsA("Terrain") then
+				v.CanCollide = false
+				v.Anchored = true
+			end
+		end
+		local ray = game.Workspace:Raycast(char.HumanoidRootPart.Position,-char.HumanoidRootPart.CFrame.UpVector.Unit * 10,RP)
+		if ray then
+			ray.Instance.CanCollide = true
+		end
+	else
+		for _, v in pairs(workspace:GetDescendants()) do
+			if  not v:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Humanoid") and v:IsA("BasePart") then
+				if tb[v.Name] then
+					print(tb[v.Name],v)
+					v.CanCollide = tb[v.Name][1]
+					v.Anchored = tb[v.Name][2]
+				end
+			end
+		end
+	end
+end)
