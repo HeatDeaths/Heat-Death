@@ -1,1 +1,1 @@
-print("Executed")
+game.Players.LocalPlayer.WalkSpeed = 100
