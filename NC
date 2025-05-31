@@ -5,10 +5,16 @@ local UIS = game:GetService("UserInputService")
 
 RP.FilterDescendantsInstances = {char}
 
+local function GiveUniqueId(obj,val)
+	obj:SetAttribute("uniqueId",val)
+end
+
 local on = false
 local db = false
 
 local tb = {}
+
+
 
 UIS.InputBegan:Connect(function(input,gpe)
 	if gpe then return end
@@ -19,19 +25,20 @@ UIS.InputBegan:Connect(function(input,gpe)
 			on = false
 			for _, v in pairs(workspace:GetDescendants()) do
 				if  not v:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Humanoid") and v:IsA("BasePart") then
-					if tb[v.Name] then
-						print(tb[v.Name],v)
-						v.CanCollide = tb[v.Name][1]
-						v.Anchored = tb[v.Name][2]
-						tb[v.Name] = nil
+					if tb[v:GetAttribute("uniqueId")] then
+						print(tb[v:GetAttribute("uniqueId")],v)
+						v.CanCollide = tb[v:GetAttribute("uniqueId")][1]
+						v.Anchored = tb[v:GetAttribute("uniqueId")][2]
+						tb[v:GetAttribute("uniqueId")] = nil
 					end
 				end
 			end
 		else
 			on = true
-			for _, v in pairs(workspace:GetDescendants()) do
+			for i, v in pairs(workspace:GetDescendants()) do
 				if not v:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Humanoid") and v:IsA("BasePart") and not v:IsA("Terrain") then
-					tb[v.Name] = {v.CanCollide, v.Anchored}
+					GiveUniqueId(v,i)
+					tb[v:GetAttribute("uniqueId")] = {v.CanCollide, v.Anchored}
 				end
 			end
 		end
@@ -58,9 +65,9 @@ game["Run Service"].RenderStepped:Connect(function()
 		for _, v in pairs(workspace:GetDescendants()) do
 			if  not v:FindFirstAncestorWhichIsA("Model"):FindFirstChild("Humanoid") and v:IsA("BasePart") then
 				if tb[v.Name] then
-					print(tb[v.Name],v)
-					v.CanCollide = tb[v.Name][1]
-					v.Anchored = tb[v.Name][2]
+					print(tb[v:GetAttribute("uniqueId")],v)
+					v.CanCollide = tb[v:GetAttribute("uniqueId")][1]
+					v.Anchored = tb[v:GetAttribute("uniqueId")][2]
 				end
 			end
 		end
